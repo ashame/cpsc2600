@@ -1,8 +1,6 @@
-# CPSC 2600 Final Project
+# [CPSC 2600 Final Project](https://project-2600.herokuapp.com/)
 
-This is a somewhat basic restaurant menu management application. Features include secured API routes via sessionId tokens, fully functioning user signup / login, the ability to create new 'restaurants' - each with their own menu (or menus), and the ability to add items to the menu. 
-
-As you might have noticed, the frontend is completely different from what I demonstrated to you during our meeting on Tuesday. Since Wednesday afternoon, I've completely scrapped my entire frontend and rebuilt it from the ground up, tidying up code and rewriting most components as functional components with useState and useEffect hooks. 
+This is a somewhat basic restaurant menu management application. Features include secured API routes via sessionId tokens, fully functioning user signup / login, the ability to create new 'restaurants' - each with their own menu (or menus), and the ability to add items to the menu.
 
 Also included in the project is an openapi.yml file, documenting (most) of the API routes.
 
@@ -30,16 +28,28 @@ Also included in the project is an openapi.yml file, documenting (most) of the A
 
 2. npm start OR npm run dev
 
-## Disclaimer
+## Dependencies
 
-All images used in menu items that I created were either created or photographed by myself.
-
-## Additional resources used
-
-- [uuid](https://www.npmjs.com/package/uuid)
-- [morgan](https://www.npmjs.com/package/morgan)
-- [styled-components](https://www.npmjs.com/package/styled-components)
-- [react-router-dom](https://reactrouter.com/)
-- [css-reset-and-normalize](https://www.npmjs.com/package/css-reset-and-normalize)
-- [react-bootstrap](https://react-bootstrap.github.io/)
+- [@babel/core](https://www.npmjs.com/package/@babel/core)
+- [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
+- [@babel/preset-react](https://www.npmjs.com/package/@babel/preset-react)
+- [axios](https://www.npmjs.com/package/axios)
+- [babel-loader](https://www.npmjs.com/package/babel-loader)
 - [bcrytpjs](https://www.npmjs.com/package/bcryptjs)
+- [bootstrap](https://getbootstrap.com/)
+- [css-loader](https://www.npmjs.com/package/css-loader)
+- [css-reset-and-normalize](https://www.npmjs.com/package/css-reset-and-normalize)
+- [dotenv](https://www.npmjs.com/package/dotenv)
+- [express](https://expressjs.com/)
+- [express-validator](https://www.npmjs.com/package/express-validator)
+- [mongoose](https://mongoosejs.com/)
+- [morgan](https://www.npmjs.com/package/morgan)
+- [nodemon](https://www.npmjs.com/package/nodemon)
+- [react](https://reactjs.org/)
+- [react-bootstrap](https://react-bootstrap.github.io/)
+- [react-router-dom](https://reactrouter.com/)
+- [style-loader](https://www.npmjs.com/package/style-loader)
+- [styled-components](https://www.npmjs.com/package/styled-components)
+- [uuid](https://www.npmjs.com/package/uuid)
+- [webpack](https://www.npmjs.com/package/webpack)
+- [webpack-cli](https://www.npmjs.com/package/webpack-cli)
