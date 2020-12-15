@@ -1,0 +1,43 @@
+{
+  "name": "project-nathan-liu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "dev": "nodemon -r dotenv/config index.js",
+    "start": "NODE_ENV=production node -r dotenv/config index.js",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "axios": "^0.21.0",
+    "babel-loader": "^8.1.0",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.3",
+    "css-loader": "^5.0.0",
+    "css-reset-and-normalize": "^2.3.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.7.0",
+    "mongoose": "^5.10.11",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "style-loader": "^2.0.0",
+    "styled-components": "^5.2.1",
+    "uuid": "^8.3.1",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.1.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.6"
+  }
+}

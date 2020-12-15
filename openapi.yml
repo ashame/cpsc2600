@@ -1,0 +1,307 @@
+openapi: 3.0.0
+info:
+  title: CPSC 2600 Final Project API
+  description: Project API for CPSC 2600
+  version: 1.0
+
+servers:
+  - url: http://localhost:8080/api/v1/
+    descrption: Local development server
+    
+components:
+  schemas:
+    Address:
+      properties:
+        lineOne:
+          type: string
+        lineTwo:
+          type: string
+        city:
+          type: string
+        province:
+          type: string
+        postalCode:
+          type: string
+      required:
+        - lineOne
+        - city
+        - province
+        - postalCode
+    Menu:
+      properties:
+        restaurant:
+          type: object
+          properties:
+            name:
+              type: string
+        name:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MenuItem'
+      required:
+        - name
+        - restaurant
+    MenuItem:
+      properties:
+        name: 
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        price:
+          type: number
+      required:
+        - name
+        - description
+        - price
+    Restaurant:
+      properties:
+        name: 
+          type: string
+        address:
+          type: object
+          $ref: '#/components/schemas/Address'
+        phone:
+          type: number
+        website:
+          type: string
+        menus:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Menu'
+      required:
+        - name
+        - address
+        - phone
+    User:
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email: 
+          type: string
+        sessionId:
+          type: string
+      required:
+        - username
+        - password
+        - email
+    Error:
+      properties:
+        status:
+          type: number
+        message:
+          type: string
+    
+paths:
+  /login:
+    post:
+      summary: Authenticates login attempt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                type:
+                  type: string
+                  enum: [username, email]                    
+              required:
+                - username
+                - password
+                - type
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId: 
+                    type: string
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: '#/components/schemas/Error'
+               
+  /menus:
+    get:
+      summary: Retrieves a list of menus
+      responses:
+        '200':
+          description: A list of all menus
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menu'
+        '404':
+          description: No menus found
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: '#/components/schemas/Error'
+  /menus/new:
+    post:
+      summary: Adds a new menu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                sessionId:
+                  type: string
+                restaurantId: 
+                  type: string
+                name:
+                  type:
+                    string
+              required:
+                - sessionId
+                - restaurantId
+                - name
+      responses:
+        '200':
+          description: The newly created menu
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Menu'
+        '400':
+          description: Invalid body content
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: '#/components/schemas/Error'
+  /menus/:id:
+    get:
+      summary: Fetches menu information for given ID
+      responses:
+        '200':
+          description: successful retrieval of menu given ID
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Menu'
+        '404':
+          description: no menu with given ID found
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: '#/components/schemas/Error'
+  /menus/:id/addItem:
+    post:
+      summary: Adds a new MenuItem to an existing Menu
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - type: object
+                  properties:
+                    sessionId:
+                      type: string
+                - $ref: '#/components/schemas/MenuItem'
+      responses:
+        '200':
+          description: Item successfully added to menu
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Menu'
+                
+  /register:
+    post:
+      summary: Registers a new user
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User successfully registered
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+        '400':
+          description: Invalid body content
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: '#/components/schemas/Error'
+        '406':
+          description: Username/email already exists
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: '#/components/schemas/Error'
+               
+  /restaurants:
+    get:
+      summary: Retrieves a list of restaurants
+      responses:
+        '200':
+          description: successful retrieval of restaurant list
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Restaurant'
+  /restaurants/new:
+    post:
+      summary: Creates a new Restaurant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - type: object
+                  properties:
+                    sessionId:
+                      type: string
+                - $ref: '#/components/schemas/Restaurant'
+      responses:
+        '200':
+          description: successful creation of new Restaurant
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Restaurant'
+        '400':
+          description: Invalid body content
+          content:
+            application/json:
+              schema:
+               type: object
+               $ref: '#/components/schemas/Error'
